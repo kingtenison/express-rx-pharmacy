@@ -1,5 +1,5 @@
-﻿import { Metadata } from "next";
-export const metadata: Metadata = { title: "Blog | ExpressRX Pharmacy" };
+﻿import Link from "next/link";
+export const metadata = { title: "Blog | ExpressRX Pharmacy" };
 export default function BlogPage() {
   return (
     <>
@@ -8,18 +8,31 @@ export default function BlogPage() {
           <div className="max-w-3xl mx-auto text-center relative z-10">
             <span className="section-label mb-3">Blog</span>
             <h1 className="display-xl mb-4" style={{ color: "var(--text-1)" }}>Health Blog</h1>
-            <p className="text-lg" style={{ color: "var(--text-2)" }}>Health tips, pharmacy news, and updates coming soon.</p>
+            <p className="text-lg" style={{ color: "var(--text-2)" }}>Health tips, pharmacy news, and expert insights.</p>
           </div>
         </div>
       </section>
       <section className="py-16 md:py-24" style={{ background: "var(--bg-base)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center py-12">
-            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: "var(--primary-dim)" }}>
-              <svg className="w-8 h-8" style={{ color: "var(--primary)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" /></svg>
-            </div>
-            <h2 className="text-2xl font-semibold mb-2" style={{ color: "var(--text-1)" }}>Coming Soon</h2>
-            <p className="max-w-md mx-auto" style={{ color: "var(--text-2)" }}>We&apos;re working on valuable content to help you stay informed about your health. Check back soon!</p>
+          <div className="max-w-4xl mx-auto">
+            <Link href="/blog/choose-long-term-care-pharmacy" className="block group">
+              <article className="card-bento p-8 mb-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="section-label">Patient & Caregiver Guide</span>
+                  <span className="text-sm" style={{ color: "var(--text-3)" }}>April 2026</span>
+                  <span className="text-sm" style={{ color: "var(--text-3)" }}>8 min read</span>
+                </div>
+                <h2 className="font-display text-2xl mb-4 group-hover:text-[var(--primary-dark)] transition-colors" style={{ color: "var(--text-1)" }}>
+                  How to Choose the Right Long-Term Care Pharmacy in Columbus, Ohio
+                </h2>
+                <p className="mb-4" style={{ color: "var(--text-2)" }}>
+                  Managing a chronic condition — or supporting a loved one in long-term care — involves far more than picking up prescriptions. Learn how to make the right choice.
+                </p>
+                <div className="flex items-center gap-4 text-sm" style={{ color: "var(--primary)" }}>
+                  <span>Read Article →</span>
+                </div>
+              </article>
+            </Link>
           </div>
         </div>
       </section>
