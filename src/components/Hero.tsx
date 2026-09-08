@@ -21,7 +21,7 @@ export default function Hero() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden">
+    <section ref={ref} className="relative min-h-screen flex items-stretch overflow-hidden">
       <Image
         src="/hero-bg.jpg"
         alt=""
@@ -32,19 +32,26 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_800px_600px_at_15%_50%,rgba(0,163,0,0.08)_0%,transparent_70%)]" />
       <div className="absolute inset-x-0 bottom-0 h-64 pointer-events-none" style={{ background: "linear-gradient(to top, var(--bg-surface) 0%, var(--bg-surface) 20%, transparent 100%)" }} />
 
-      <div className="relative z-10 w-full px-5 sm:px-6 md:px-12 lg:px-16 pt-20 pb-10 sm:pt-28 sm:pb-16 md:pt-36 md:pb-24">
+      <div className="relative z-10 w-full px-5 sm:px-6 md:px-12 lg:px-16 py-10 sm:py-14 md:py-16 flex flex-col justify-between">
           <motion.div
             className="max-w-3xl"
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full mb-5 sm:mb-8 border border-white/20" style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}>
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full border border-white/20" style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}>
               <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00A300]" />
               <span className="text-[11px] sm:text-[14px] font-semibold uppercase tracking-[0.15em] text-[#00A300]">Ohio&apos;s Trusted Pharmacy</span>
             </motion.div>
+          </motion.div>
 
-            <motion.h1 variants={itemVariants} className="mb-4 sm:mb-6">
+          <motion.div
+            className="max-w-3xl"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
+            <motion.h1 variants={itemVariants} className="mb-4 sm:mb-5 md:mb-6">
               <span className="block text-[clamp(2.5rem,6.9vw,6.25rem)] font-bold leading-[1.04] tracking-[-0.03em] text-black">
                 Beyond{'\u00A0'}Prescriptions.
               </span>
@@ -53,11 +60,11 @@ export default function Hero() {
               </span>
             </motion.h1>
 
-            <motion.p variants={itemVariants} className="text-base sm:text-xl md:text-2xl leading-relaxed text-black max-w-lg mb-6 sm:mb-8 md:mb-11" style={{ textShadow: "0 0 4px rgba(255,255,255,0.9), 0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.3)" }}>
+            <motion.p variants={itemVariants} className="text-base sm:text-xl md:text-2xl leading-relaxed text-black max-w-lg mb-6 sm:mb-8 md:mb-10" style={{ textShadow: "0 0 4px rgba(255,255,255,0.9), 0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.3)" }}>
               {heroSection.subtitle}
             </motion.p>
 
-            <motion.div variants={itemVariants} className="flex flex-row gap-3 sm:gap-4 mb-8 sm:mb-10 md:mb-14">
+            <motion.div variants={itemVariants} className="flex flex-row gap-3 sm:gap-4">
               <Link href="/services">
                 <motion.button
                   className="group relative px-5 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded-full text-white font-semibold text-sm sm:text-base tracking-wide inline-flex items-center gap-2 sm:gap-3 overflow-hidden"
@@ -83,7 +90,14 @@ export default function Hero() {
                 </motion.button>
               </Link>
             </motion.div>
+          </motion.div>
 
+          <motion.div
+            className="max-w-3xl"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
             <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-2 sm:gap-3">
               <span className="text-[11px] sm:text-[14px] font-semibold uppercase tracking-[0.12em] text-black mr-0.5 sm:mr-1">Trusted by</span>
               {stats.slice(0, 3).map((stat) => (
@@ -94,7 +108,7 @@ export default function Hero() {
                 </span>
               ))}
             </motion.div>
-        </motion.div>
+          </motion.div>
       </div>
     </section>
   );
