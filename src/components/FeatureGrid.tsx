@@ -30,10 +30,10 @@ export default function FeatureGrid() {
             <h2 className="text-[clamp(1.75rem,5vw,4rem)] font-bold leading-[1.1] tracking-[-0.02em] text-black mb-4 md:mb-6">
               Exceptional{'\u00A0'}Pharmacy<br className="hidden md:block" />Care for Your<br />Whole{'\u00A0'}<span className="text-[#00A300]">Health.</span>
             </h2>
-            <p className="text-base md:text-xl lg:text-[1.4rem] leading-relaxed text-black max-w-md mb-6 md:mb-8">
+            <p className="hidden md:block text-base md:text-xl lg:text-[1.4rem] leading-relaxed text-black max-w-md mb-6 md:mb-8">
               At ExpressRX, we combine expert pharmacists, personalized service, and a patient-first approach to deliver comprehensive pharmacy care you can trust.
             </p>
-            <motion.div initial="hidden" animate={isInView ? "visible" : "hidden"} variants={{ visible: { transition: { staggerChildren: 0.08 } } }} className="grid grid-cols-2 md:flex md:flex-wrap items-center gap-2 md:gap-3">
+            <motion.div initial="hidden" animate={isInView ? "visible" : "hidden"} variants={{ visible: { transition: { staggerChildren: 0.08 } } }} className="hidden md:grid grid-cols-2 md:flex md:flex-wrap items-center gap-2 md:gap-3">
               {featureGrid.slice(0, 3).map((stat, i) => {
                 const Icon = iconMap[stat.icon] || Heart;
                 return (
@@ -65,13 +65,13 @@ export default function FeatureGrid() {
               const Icon = iconMap[feature.icon] || Heart;
               return (
                 <motion.div key={i} variants={itemVariants} className="flex items-start gap-2 md:gap-4 p-3 md:p-4 rounded-xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-sm">
-                  <span className="text-lg md:text-2xl lg:text-4xl font-bold leading-[1.1] text-[#00A300]/20 shrink-0">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="hidden md:inline text-lg md:text-2xl lg:text-4xl font-bold leading-[1.1] text-[#00A300]/20 shrink-0">{String(i + 1).padStart(2, "0")}</span>
                   <div className="min-w-0">
-                    <div className="flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1.5">
+                    <div className="flex items-center gap-1.5 md:gap-2">
                       <Icon className="w-3.5 h-3.5 md:w-5 md:h-5 text-[#00A300] shrink-0" />
                       <h3 className="font-semibold text-black" style={{ fontSize: "clamp(0.8125rem,1.375vw,1.25rem)" }}>{feature.title}</h3>
                     </div>
-                    <p className="text-xs md:text-sm lg:text-base leading-relaxed text-black">{feature.description}</p>
+                    <p className="hidden md:block text-xs md:text-sm lg:text-base leading-relaxed text-black">{feature.description}</p>
                   </div>
                 </motion.div>
               );
