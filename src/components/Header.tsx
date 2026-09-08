@@ -129,7 +129,8 @@ export default function Header() {
                             <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${activeDropdown === item.label ? "rotate-180 text-[#00A300]" : ""}`} />
                           </div>
                         </button>
-                        <AnimatePresence>
+      </header>
+      <AnimatePresence>
                           {activeDropdown === item.label && (
                             <motion.div
                               initial={{ height: 0, opacity: 0 }}
@@ -199,7 +200,6 @@ export default function Header() {
           </>
         )}
       </AnimatePresence>
-    </header>
     </>
   );
 }
