@@ -65,13 +65,13 @@ export default function FeatureGrid() {
               const Icon = iconMap[feature.icon] || Heart;
               return (
                 <motion.div key={i} variants={itemVariants} className="flex items-start gap-2 md:gap-4 p-3 md:p-4 rounded-xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-sm">
-                  <span className="hidden md:inline text-lg md:text-2xl lg:text-4xl font-bold leading-[1.1] text-[#00A300]/20 shrink-0">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="text-lg md:text-2xl lg:text-4xl font-bold leading-[1.1] text-[#00A300]/20 shrink-0">{String(i + 1).padStart(2, "0")}</span>
                   <div className="min-w-0">
-                    <div className="flex items-center gap-1.5 md:gap-2">
+                    <div className="flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1.5">
                       <Icon className="w-3.5 h-3.5 md:w-5 md:h-5 text-[#00A300] shrink-0" />
                       <h3 className="font-semibold text-black" style={{ fontSize: "clamp(0.8125rem,1.375vw,1.25rem)" }}>{feature.title}</h3>
                     </div>
-                    <p className="hidden md:block text-xs md:text-sm lg:text-base leading-relaxed text-black">{feature.description}</p>
+                    <p className="text-xs md:text-sm lg:text-base leading-relaxed text-black">{feature.description}</p>
                   </div>
                 </motion.div>
               );
