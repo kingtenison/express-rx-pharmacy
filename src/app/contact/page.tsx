@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
@@ -64,7 +64,7 @@ export default function ContactPage() {
     <>
       {/* Hero */}
       <section className="pt-20 md:pt-32 pb-10 md:pb-16 gradient-hero">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="relative z-10">
             <span className="section-label mb-3">Contact</span>
             <h1 className="display-xl mb-4" style={{ color: "var(--text-1)" }}>Get in Touch</h1>
@@ -77,7 +77,7 @@ export default function ContactPage() {
 
       {/* Contact section */}
       <section className="py-12 md:py-20" style={{ background: "var(--bg-base)" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Info column */}
             <motion.div

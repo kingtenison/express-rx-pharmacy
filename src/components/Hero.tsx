@@ -1,100 +1,100 @@
-﻿"use client";
+"use client";
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, type Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import { heroSection } from "@/lib/data";
+import { ArrowRight, Shield, Phone, CheckCircle } from "lucide-react";
+import { heroSection, stats } from "@/lib/data";
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
 export default function Hero() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden" style={{ background: "linear-gradient(135deg, #0a1f14 0%, #0f3320 30%, #1a5c30 70%, #2a7a40 100%)" }}>
-      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(78, 201, 102, 0.15) 0%, transparent 70%)" }} />
-      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 30% 20%, rgba(76, 201, 102, 0.08) 0%, transparent 60%)" }} />
-      <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 80%, rgba(76, 201, 102, 0.1) 0%, transparent 60%)" }} />
-      <div className="absolute inset-0 opacity-30">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="heroGrid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(76, 201, 102, 0.5)" strokeWidth="1"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#heroGrid)" />
-        </svg>
-      </div>
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 md:pt-32 md:pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
-            <motion.div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 md:mb-6" style={{ background: "rgba(76, 201, 102, 0.2)", color: "#4cc966" }} initial={{ opacity: 0, scale: 0.9 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ delay: 0.2, duration: 0.5 }}>
-              <span className="text-xs font-medium uppercase tracking-wider">Ohio&apos;s Trusted Pharmacy</span>
-              <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: "var(--primary)" }} />
+    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden">
+      <Image
+        src="/hero-bg.jpg"
+        alt=""
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_800px_600px_at_15%_50%,rgba(0,163,0,0.08)_0%,transparent_70%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-64 pointer-events-none" style={{ background: "linear-gradient(to top, var(--bg-surface) 0%, var(--bg-surface) 20%, transparent 100%)" }} />
+
+      <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-28 pb-16 md:pt-36 md:pb-24">
+          <motion.div
+            className="max-w-3xl"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full mb-8 border border-white/20" style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}>
+              <Shield className="w-4 h-4 text-[#00A300]" />
+              <span className="text-[14px] font-semibold uppercase tracking-[0.15em] text-[#00A300]">Ohio&apos;s Trusted Pharmacy</span>
             </motion.div>
-             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight" style={{ color: "white", letterSpacing: "0.02em" }}>
-               Beyond Prescriptions.<br />
-               <span style={{ color: "#4cc966" }}>Complete Care.</span>
-             </h1>
-             <p className="text-base md:text-lg leading-relaxed mb-6 md:mb-8 max-w-xl" style={{ color: "rgba(255, 255, 255, 0.85)" }}>
-               {heroSection.subtitle}
-             </p>
-            <motion.div className="flex flex-col sm:flex-row gap-3 mb-8" initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.4, duration: 0.6 }}>
+
+            <motion.h1 variants={itemVariants} className="mb-6">
+              <span className="block text-[clamp(3.5rem,6.9vw,6.25rem)] font-bold leading-[1.04] tracking-[-0.03em] text-black">
+                Beyond{'\u00A0'}Prescriptions.
+              </span>
+              <span className="block text-[clamp(3.5rem,6.9vw,6.25rem)] font-bold leading-[1.04] tracking-[-0.03em] mt-1">
+                Complete{'\u00A0'}<span className="text-[#00A300]">Care.</span>
+              </span>
+            </motion.h1>
+
+            <motion.p variants={itemVariants} className="text-xl md:text-2xl leading-relaxed text-black max-w-lg mb-11" style={{ textShadow: "0 0 4px rgba(255,255,255,0.9), 0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.3)" }}>
+              {heroSection.subtitle}
+            </motion.p>
+
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-14">
               <Link href="/services">
                 <motion.button
-                  className="btn-primary w-full sm:w-auto group relative overflow-hidden"
-                  whileHover={{ scale: 1.05, boxShadow: "0 12px 32px rgba(22, 163, 74, 0.4)" }}
-                  whileTap={{ scale: 0.95 }}
-                  animate={{
-                    boxShadow: [
-                      "0 4px 14px rgba(22, 163, 74, 0.25)",
-                      "0 8px 24px rgba(22, 163, 74, 0.35)",
-                      "0 4px 14px rgba(22, 163, 74, 0.25)"
-                    ]
-                  }}
-                  transition={{ duration: 2, repeat: Infinity }}
+                  className="group relative px-10 py-5 rounded-full text-white font-semibold text-base tracking-wide inline-flex items-center gap-3 overflow-hidden"
+                  style={{ background: "linear-gradient(135deg, #00A300 0%, #007A00 100%)" }}
+                  whileHover={{ scale: 1.02, boxShadow: "0 16px 40px -8px rgba(0,163,0,0.35)" }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <motion.span
-                    className="absolute inset-0 bg-white opacity-0"
-                    whileHover={{ opacity: 0.1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <span className="relative z-10 flex items-center">
+                  <span className="relative z-10 flex items-center gap-3">
                     {heroSection.ctaPrimary}
-                    <motion.span
-                      className="inline-block ml-2"
-                      animate={{ x: [0, 4, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      <ArrowRight className="w-5 h-5" />
-                    </motion.span>
+                    <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
                 </motion.button>
               </Link>
               <Link href="/contact">
                 <motion.button
-                  className="btn-secondary w-full sm:w-auto relative overflow-hidden"
-                  whileHover={{ scale: 1.05, backgroundColor: "var(--primary-dim)" }}
-                  whileTap={{ scale: 0.95 }}
-                  animate={{
-                    borderColor: [
-                      "var(--primary)",
-                      "var(--primary-light)",
-                      "var(--primary)"
-                    ]
-                  }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="px-10 py-5 rounded-full font-semibold text-base tracking-wide inline-flex items-center gap-3 border border-white/20 transition-all duration-300"
+                  style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", color: "#000000" }}
+                  whileHover={{ scale: 1.02, background: "rgba(255,255,255,0.8)" }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <span className="relative z-10">{heroSection.ctaSecondary}</span>
+                  <Phone className="w-5 h-5" />
+                  {heroSection.ctaSecondary}
                 </motion.button>
               </Link>
             </motion.div>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, x: 30 }} animate={isInView ? { opacity: 1, x: 0 } : {}} transition={{ delay: 0.3, duration: 0.6 }} className="relative order-first lg:order-none mb-8 lg:mb-0">
-            <div className="relative rounded-2xl md:rounded-3xl overflow-hidden border-4 border-white shadow-xl md:shadow-2xl" style={{ boxShadow: "0 20px 60px rgba(22, 163, 74, 0.2)" }}>
-              <Image src="/images/logo.jpeg" alt="ExpressRX Pharmacy" width={600} height={600} className="w-full h-auto object-cover" priority />
-              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(22,163,74,0.1)] to-transparent opacity-60" />
-            </div>
-          </motion.div>
-        </div>
+
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-3">
+              <span className="text-[14px] font-semibold uppercase tracking-[0.12em] text-black mr-1">Trusted by</span>
+              {stats.slice(0, 3).map((stat) => (
+                <span key={stat.label} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-white/20 text-sm" style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", color: "#000000" }}>
+                  <CheckCircle className="w-4 h-4 text-[#00A300]" />
+                  <span className="font-semibold text-black">{stat.value}</span>
+                  {stat.label}
+                </span>
+              ))}
+            </motion.div>
+        </motion.div>
       </div>
     </section>
   );

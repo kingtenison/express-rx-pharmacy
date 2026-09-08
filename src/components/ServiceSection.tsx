@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { motion, Variants, useInView } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
@@ -12,7 +12,7 @@ export default function ServiceSection() {
   return (
     <section ref={ref} className="relative py-12 md:py-20" style={{ background: "var(--bg-surface)" }}>
       <div className="absolute inset-0 mesh-light opacity-50" />
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="text-center mb-8 md:mb-12">
           <span className="section-label mb-3">What We Offer</span>
           <h2 className="display-lg mb-4" style={{ color: "var(--text-1)" }}>Our Services</h2>
