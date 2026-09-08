@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronDown, Phone, Mail, MapPin } from "lucide-react";
 import { navigation, siteConfig } from "@/lib/data";
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -26,6 +27,7 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   return (
     <>
       <style>{`
@@ -84,8 +86,9 @@ export default function Header() {
                 </div>
               </div>
             </button>
+          </div>
         </div>
-      </div>
+      </header>
       <AnimatePresence>
         {isOpen && (
           <>
@@ -116,7 +119,7 @@ export default function Header() {
                 </button>
               </div>
               <nav className="px-4 pt-2 pb-4">
-                {navigation.map((item, i) => (
+                {navigation.map((item) => (
                   <div key={item.label}>
                     {item.dropdown ? (
                       <div className="mb-0.5">
@@ -129,8 +132,7 @@ export default function Header() {
                             <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${activeDropdown === item.label ? "rotate-180 text-[#00A300]" : ""}`} />
                           </div>
                         </button>
-      </header>
-      <AnimatePresence>
+                        <AnimatePresence>
                           {activeDropdown === item.label && (
                             <motion.div
                               initial={{ height: 0, opacity: 0 }}
