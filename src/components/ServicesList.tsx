@@ -47,7 +47,7 @@ export default function ServicesList({ services }: ServicesListProps) {
                     : "bg-gradient-to-br from-[#007A00] via-[#005C00] to-[#00A300]"
                 }`}
               >
-                <div className={`relative w-full md:w-1/2 h-64 md:h-auto group overflow-hidden ${isEven ? "" : "md:order-2"}`}>
+                <div className={`relative w-full md:w-1/2 h-48 md:h-auto group overflow-hidden ${isEven ? "" : "md:order-2"}`}>
                   <Image src={`/images/${service.id}.png`} alt={service.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" priority={i < 2} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
                   <span className="absolute bottom-4 left-4 text-white/40 text-5xl font-black tracking-widest">{String(i + 1).padStart(2, "0")}</span>
@@ -62,12 +62,12 @@ export default function ServicesList({ services }: ServicesListProps) {
                     </h3>
                   </div>
                   <div className={`h-1 w-12 rounded-full mb-5 ${isEven ? "bg-gradient-to-r from-[#00A300] to-[#00CC00]" : "bg-gradient-to-r from-white/60 to-white/20"}`} />
-                  <p className={`text-sm sm:text-base leading-relaxed mb-5 ${isEven ? "text-black" : "text-white/80"}`}>
+                  <p className={`hidden md:block text-sm sm:text-base leading-relaxed mb-5 ${isEven ? "text-black" : "text-white/80"}`}>
                     {service.description}
                   </p>
                   <ul className="space-y-3 mb-6">
                     {service.features.slice(0, 3).map((f, j) => (
-                      <li key={j} className="flex items-start gap-3">
+                      <li key={j} className={`flex items-start gap-3 ${j === 2 ? "hidden md:flex" : ""}`}>
                         <div className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${isEven ? "bg-[#00A300]" : "bg-white/90"}`}>
                           <Check className={`w-3 h-3 ${isEven ? "text-white" : "text-[#007A00]"}`} />
                         </div>
@@ -76,7 +76,7 @@ export default function ServicesList({ services }: ServicesListProps) {
                     ))}
                   </ul>
                   {meta.time && (
-                    <div className={`flex flex-wrap items-center gap-5 mb-8 ${isEven ? "" : ""}`}>
+                    <div className={`hidden md:flex flex-wrap items-center gap-5 mb-8 ${isEven ? "" : ""}`}>
                       <span className={`flex items-center gap-2 text-sm font-medium ${isEven ? "text-black" : "text-white/60"}`}>
                         <Clock className={`w-4 h-4 ${isEven ? "text-[#00A300]" : "text-white/80"}`} />
                         {meta.time}
