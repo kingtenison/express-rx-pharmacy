@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,6 +8,24 @@ import { navigation, siteConfig } from "@/lib/data";
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      if (currentY <= 0) {
+        setIsVisible(true);
+      } else if (currentY < lastScrollY.current) {
+        setIsVisible(true);
+      } else if (currentY > lastScrollY.current) {
+        setIsVisible(false);
+      }
+      lastScrollY.current = currentY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <>
       <style>{`
@@ -19,7 +37,7 @@ export default function Header() {
         .menu-icon-active .menu-icon-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
         .menu-icon-active .menu-icon-bar:nth-child(3) { top: 9px; transform: rotate(-45deg); }
       `}</style>
-      <header className="fixed top-0 left-0 right-0 z-50 py-3">
+      <header className="fixed top-0 left-0 right-0 z-50 py-3 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" style={{ transform: isVisible ? "translateY(0)" : "translateY(-100%)" }}>
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center group">
