@@ -219,12 +219,27 @@ export default function FAQPage() {
                 </motion.div>
               ) : (
                 <motion.div key={activeTab + search} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
-                  {filteredItems.map((item, i) => {
-                    const originalIndex = items.indexOf(item);
-                    const isOpen = openIndex === originalIndex;
+                  {/* Both tabpanels render so every Q&A is present in the served HTML (SEO/AEO);
+                      the inactive panel stays hidden per the ARIA tabs pattern. */}
+                  {(["patients", "providers"] as const).map((tabKey) => {
+                    const list = tabKey === "patients" ? faqPatientQuestions : faqProviderQuestions;
+                    const panelItems = search.trim()
+                      ? list.filter(
+                          (it) =>
+                            it.question.toLowerCase().includes(search.toLowerCase()) ||
+                            it.answer.toLowerCase().includes(search.toLowerCase())
+                        )
+                      : list;
+                    const isActive = activeTab === tabKey;
+                    return (
+                      <div key={tabKey} hidden={!isActive} className="space-y-3">
+                  {panelItems.map((item, i) => {
+                    const originalIndex = list.indexOf(item);
+                    const isOpen =
+                      isActive && (tabKey === "patients" ? openPatientIndex : openProviderIndex) === originalIndex;
                     const catId = categorize(item.question);
                     const cat = categories.find((c) => c.id === catId);
-                    const voteKey = `${activeTab}-${originalIndex}`;
+                    const voteKey = `${tabKey}-${originalIndex}`;
                     const userVote = voted[voteKey];
                     return (
                       <motion.div
@@ -254,10 +269,15 @@ export default function FAQPage() {
                             <Plus className="w-4 h-4" style={{ color: isOpen ? "white" : "var(--primary)" }} />
                           </div>
                         </button>
-                        <AnimatePresence>
-                          {isOpen && (
-                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
-                              <div className="px-5 pb-5 pt-0">
+                        <motion.div
+                          initial={false}
+                          animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                          style={{ overflow: "hidden" }}
+                          aria-hidden={!isOpen}
+                          inert={!isOpen}
+                        >
+                          <div className="px-5 pb-5 pt-0">
                                 <div className="ml-12 pl-1">
                                   <div className="p-4 rounded-xl text-sm md:text-base leading-relaxed mb-4" style={{ background: "var(--bg-base)", color: "var(--text-2)" }}>
                                     {item.answer}
@@ -282,10 +302,11 @@ export default function FAQPage() {
                                   </div>
                                 </div>
                               </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                        </motion.div>
                       </motion.div>
+                    );
+                  })}
+                      </div>
                     );
                   })}
                 </motion.div>

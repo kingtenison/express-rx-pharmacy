@@ -1,18 +1,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import { blogPosts } from "@/lib/blog-data";
+import { buildMetadata } from "@/lib/seo";
 import { ArrowRight, Clock, Tag, BookOpen, Sparkles } from "lucide-react";
 
-export const metadata = {
-  title: "Health Blog | ExpressRx Pharmacy – Columbus, Ohio",
-  description: "Expert health tips, pharmacy news, medication guides, and patient resources from ExpressRx Pharmacy in Columbus, Ohio. Stay informed about compounding, DME, insurance, and more.",
-  keywords: ["pharmacy blog", "health tips Columbus Ohio", "medication guide", "compounding pharmacy", "ExpressRx blog", "patient resources Ohio"],
-  openGraph: {
-    title: "Health Blog | ExpressRx Pharmacy",
-    description: "Expert health tips, pharmacy news, and patient resources from ExpressRx Pharmacy in Columbus, Ohio.",
-    type: "website",
-  },
-};
+export const metadata = buildMetadata({
+  title: "Pharmacy Health Blog & Medication Guides",
+  description:
+    "Patient guides from ExpressRx Pharmacy in Columbus, Ohio — medication basics, insurance and billing, compounding, DME, adherence tips, and provider resources.",
+  path: "/blog",
+  keywords: [
+    "pharmacy blog",
+    "medication guides",
+    "health tips Columbus Ohio",
+    "compounding pharmacy blog",
+    "patient resources Ohio",
+  ],
+});
 
 export default function BlogPage() {
   const featured = blogPosts.find((p) => p.featured);

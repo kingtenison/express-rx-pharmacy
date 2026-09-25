@@ -1,0 +1,38 @@
+# Express Pharmacy & DME (ExpressRx)
+
+> Columbus, Ohio pharmacy providing custom compounding, durable medical equipment (DME), long-term care pharmacy, and specialty pharmacy services. 24/7 pharmacist access, statewide prescription delivery, and 100% cash-pay options with no insurance required.
+
+Express Pharmacy & DME is a licensed Ohio pharmacy led by a physician-pharmacist team. It serves individual patients, assisted living and skilled nursing facilities, prescribers, and employers across Ohio.
+
+Key phone numbers:
+- Main line (patients): (614) 495-9097
+- Fax: (614) 448-3757
+- Email: info@expressrxdme.com
+- Hours: Mon–Sat 9AM–7PM, Sun 1PM–7PM (24/7 pharmacist on call)
+
+## Services
+
+- [Storefront catalog](https://express-rx-pharmacy.vercel.app/storefront): Cash-pay OTC and everyday pharmacy products with categories for meds, wellness, DME, and personal care.
+- [Compounding](https://express-rx-pharmacy.vercel.app/services/compounding): Custom medications — pediatric liquids, allergen-free formulations, creams, and veterinary compounding.
+- [Durable Medical Equipment](https://express-rx-pharmacy.vercel.app/services/dme): Mobility, respiratory, and recovery equipment with insurance billing support and fitting.
+- [Long-Term Care Pharmacy](https://express-rx-pharmacy.vercel.app/services/long-term-care): Unit-dose packaging, medication management, and delivery for facilities.
+- [Specialty Pharmacy](https://express-rx-pharmacy.vercel.app/services/specialty): High-cost and limited-distribution therapies with copay assistance and therapy management.
+- [For Providers](https://express-rx-pharmacy.vercel.app/services/for-providers): e-Rx, fax, and online referrals; prior authorization support; dedicated liaison.
+
+## Patient resources
+
+- [FAQ](https://express-rx-pharmacy.vercel.app/faq): Insurance, transfers, delivery, compounding, and billing answers.
+- [Blog](https://express-rx-pharmacy.vercel.app/blog): Patient guides on medications, insurance, DME, and adherence.
+- [Contact](https://express-rx-pharmacy.vercel.app/contact): Phone, fax, email, and referral form.
+- [About](https://express-rx-pharmacy.vercel.app/about): Leadership, mission, and clinical credentials.
+
+## Legal
+
+- [Privacy Policy](https://express-rx-pharmacy.vercel.app/privacy)
+- [HIPAA Notice of Privacy Practices](https://express-rx-pharmacy.vercel.app/hipaa)
+- [Accessibility Statement](https://express-rx-pharmacy.vercel.app/accessibility)
+
+## Optional
+
+- Search this site's catalog of guides via [the blog index](https://express-rx-pharmacy.vercel.app/blog).
+- All content is for general information and is not a substitute for professional medical advice. Contact a pharmacist at (614) 495-9097 for clinical questions.

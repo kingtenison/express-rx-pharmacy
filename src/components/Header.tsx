@@ -10,6 +10,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(true);
+  const [pastHero, setPastHero] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -23,7 +24,14 @@ export default function Header() {
         setIsVisible(false);
       }
       lastScrollY.current = currentY;
+      const hero = document.querySelector("section.min-h-screen");
+      if (hero) {
+        setPastHero(hero.getBoundingClientRect().bottom <= 0);
+      } else {
+        setPastHero(false);
+      }
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -45,33 +53,35 @@ export default function Header() {
             <Link href="/" className="flex items-center group">
               <Image src="/images/logo-nav.png" alt="ExpressRX Pharmacy" width={80} height={29} className="h-7 w-auto object-contain" />
             </Link>
-            <nav className="hidden lg:flex items-center gap-1">
-              {navigation.map((item) => (
-                <div key={item.label} className="relative" onMouseEnter={() => item.dropdown && setActiveDropdown(item.label)} onMouseLeave={() => setActiveDropdown(null)}>
-                  {item.dropdown ? (
-                    <>
-                      <Link href={item.href} className="flex items-center gap-1 px-4 py-2.5 rounded-full font-medium text-sm hover:bg-[var(--primary-dim)] transition-colors" style={{ color: "var(--text-2)" }}>{item.label}<ChevronDown className="w-4 h-4" /></Link>
-                      <AnimatePresence>
-                        {activeDropdown === item.label && (
-                          <motion.div initial={{ opacity: 0, y: 8, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8, scale: 0.95 }} transition={{ duration: 0.2 }} className="absolute top-full left-0 mt-2 w-56 glass rounded-xl overflow-hidden z-50 shadow-lg"
-                            onMouseEnter={() => setActiveDropdown(item.label)}
-                            onMouseLeave={() => setActiveDropdown(null)}
-                          >
-                            <div className="py-2">
-                              {item.dropdown.map((dropItem) => (
-                                <Link key={dropItem.href} href={dropItem.href} onClick={() => setActiveDropdown(null)} className="flex items-center justify-between px-4 py-3 text-sm hover:bg-[var(--primary-dim)] hover:text-[var(--primary-dark)] transition-colors" style={{ color: "var(--text-2)" }}><span>{dropItem.label}</span></Link>
-                              ))}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </>
-                  ) : (
-                    <Link href={item.href} className="px-4 py-2.5 rounded-full font-medium text-sm hover:text-[var(--primary-dark)] hover:bg-[var(--primary-dim)] transition-colors" style={{ color: "var(--text-2)" }}>{item.label}</Link>
-                  )}
-                </div>
-              ))}
-            </nav>
+            {!pastHero && (
+              <nav className="hidden lg:flex items-center gap-1">
+                {navigation.map((item) => (
+                  <div key={item.label} className="relative" onMouseEnter={() => item.dropdown && setActiveDropdown(item.label)} onMouseLeave={() => setActiveDropdown(null)}>
+                    {item.dropdown ? (
+                      <>
+                        <Link href={item.href} className="flex items-center gap-1 px-4 py-2.5 rounded-full font-medium text-sm hover:bg-[var(--primary-dim)] transition-colors" style={{ color: "var(--text-2)" }}>{item.label}<ChevronDown className="w-4 h-4" /></Link>
+                        <AnimatePresence>
+                          {activeDropdown === item.label && (
+                            <motion.div initial={{ opacity: 0, y: 8, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8, scale: 0.95 }} transition={{ duration: 0.2 }} className="absolute top-full left-0 mt-2 w-56 glass rounded-xl overflow-hidden z-50 shadow-lg"
+                              onMouseEnter={() => setActiveDropdown(item.label)}
+                              onMouseLeave={() => setActiveDropdown(null)}
+                            >
+                              <div className="py-2">
+                                {item.dropdown.map((dropItem) => (
+                                  <Link key={dropItem.href} href={dropItem.href} onClick={() => setActiveDropdown(null)} className="flex items-center justify-between px-4 py-3 text-sm hover:bg-[var(--primary-dim)] hover:text-[var(--primary-dark)] transition-colors" style={{ color: "var(--text-2)" }}><span>{dropItem.label}</span></Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      <Link href={item.href} className="px-4 py-2.5 rounded-full font-medium text-sm hover:text-[var(--primary-dark)] hover:bg-[var(--primary-dim)] transition-colors" style={{ color: "var(--text-2)" }}>{item.label}</Link>
+                    )}
+                  </div>
+                ))}
+              </nav>
+            )}
             <div className="hidden lg:flex items-center gap-3">
               <a href={`tel:${siteConfig.phone.replace(/[^0-9]/g, "")}`} className="flex items-center gap-2 text-sm font-medium hover:text-[var(--primary-dark)] transition-colors font-display" style={{ color: "var(--text-2)" }}><Phone className="w-4 h-4" /><span>{siteConfig.phone}</span></a>
               <Link href="/contact" className="btn-primary">Get Started</Link>
@@ -89,6 +99,43 @@ export default function Header() {
           </div>
         </div>
       </header>
+      <AnimatePresence>
+        {pastHero && (
+          <motion.nav
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+            transition={{ type: "spring", damping: 26, stiffness: 300 }}
+            className="hidden lg:flex fixed bottom-6 right-6 z-50 items-center gap-1 px-2 py-2 rounded-full glass shadow-lg"
+          >
+            {navigation.map((item) => (
+              <div key={item.label} className="relative" onMouseEnter={() => item.dropdown && setActiveDropdown(item.label)} onMouseLeave={() => setActiveDropdown(null)}>
+                {item.dropdown ? (
+                  <>
+                    <Link href={item.href} className="flex items-center gap-1 px-4 py-2 rounded-full font-medium text-sm hover:bg-[var(--primary-dim)] transition-colors" style={{ color: "var(--text-2)" }}>{item.label}<ChevronDown className="w-4 h-4" /></Link>
+                    <AnimatePresence>
+                      {activeDropdown === item.label && (
+                        <motion.div initial={{ opacity: 0, y: -8, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, scale: 0.95 }} transition={{ duration: 0.2 }} className="absolute bottom-full left-0 mb-2 w-56 glass rounded-xl overflow-hidden z-50 shadow-lg"
+                          onMouseEnter={() => setActiveDropdown(item.label)}
+                          onMouseLeave={() => setActiveDropdown(null)}
+                        >
+                          <div className="py-2">
+                            {item.dropdown.map((dropItem) => (
+                              <Link key={dropItem.href} href={dropItem.href} onClick={() => setActiveDropdown(null)} className="flex items-center justify-between px-4 py-3 text-sm hover:bg-[var(--primary-dim)] hover:text-[var(--primary-dark)] transition-colors" style={{ color: "var(--text-2)" }}><span>{dropItem.label}</span></Link>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </>
+                ) : (
+                  <Link href={item.href} className="px-4 py-2 rounded-full font-medium text-sm hover:text-[var(--primary-dark)] hover:bg-[var(--primary-dim)] transition-colors" style={{ color: "var(--text-2)" }}>{item.label}</Link>
+                )}
+              </div>
+            ))}
+          </motion.nav>
+        )}
+      </AnimatePresence>
       <AnimatePresence>
         {isOpen && (
           <>

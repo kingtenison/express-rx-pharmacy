@@ -100,6 +100,7 @@ function getServiceSlug(title: string): string {
     "Durable Medical Equipment": "dme",
     "Long-Term Care Pharmacy": "long-term-care",
     "For Healthcare Providers": "for-providers",
+    "Specialty Pharmacy": "specialty",
   };
   return slugMap[title] || "";
 }

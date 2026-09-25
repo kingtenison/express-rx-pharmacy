@@ -1,6 +1,10 @@
 ﻿export const siteConfig = {
   name: "Express Pharmacy & DME",
+  /** Canonical production origin. Used for metadataBase, canonicals, sitemap, OG + JSON-LD URLs. */
+  url: "https://express-rx-pharmacy.vercel.app",
   tagline: "Beyond Prescriptions. Complete Care.",
+  description:
+    "Columbus, Ohio pharmacy offering custom compounding, durable medical equipment, long-term care and specialty services with 24/7 pharmacist support.",
   phone: "(614) 495-9097",
   fax: "(614) 448-3757",
   email: "info@expressrxdme.com",
@@ -8,9 +12,16 @@
   hours: { weekdays: "Mon–Sat 9AM–7PM", sunday: "Sun 1PM–7PM" },
 };
 
+/** Parses "Mon–Sat 9AM–7PM" style config into schema.org openingHoursSpecification entries. */
+export const openingHours = [
+  { dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], opens: "09:00", closes: "19:00" },
+  { dayOfWeek: ["Sunday"], opens: "13:00", closes: "19:00" },
+];
+
 export const navigation = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services", dropdown: [{ label: "Compounding", href: "/services/compounding" }, { label: "DME", href: "/services/dme" }, { label: "Long-Term Care", href: "/services/long-term-care" }, { label: "For Providers", href: "/services/for-providers" }] },
+  { label: "Storefront", href: "/storefront" },
   { label: "About", href: "/about" },
   { label: "FAQ", href: "/faq" },
   { label: "Blog", href: "/blog" },
@@ -81,6 +92,7 @@ export const footerLinks = {
     { label: "DME", href: "/services/dme" },
     { label: "Long-Term Care", href: "/services/long-term-care" },
     { label: "For Providers", href: "/services/for-providers" },
+    { label: "Storefront", href: "/storefront" },
   ],
   company: [
     { label: "About Us", href: "/about" },
@@ -119,6 +131,7 @@ export const servicesPageContent = {
   dme: { title: "Durable Medical Equipment", description: "We provide high-quality DME products to support your recovery and daily living.", features: ["Mobility aids", "Respiratory equipment", "Home safety equipment", "Compression therapy", "Wound care supplies", "Diabetic supplies"] },
   longTermCare: { title: "Long-Term Care Pharmacy", description: "Comprehensive pharmacy services designed for assisted living facilities, nursing homes, and group homes.", features: ["Medication management", "Unit-dose packaging", "24/7 emergency service", "Consultant pharmacist", "Staff training", "Regulatory compliance"] },
   forProviders: { title: "For Healthcare Providers", description: "We partner with healthcare providers to deliver exceptional pharmacy care for their patients.", features: ["Easy online referrals", "Prior authorization assistance", "Dedicated provider liaison", "Patient education", "Competitive pricing", "Real-time tracking"] },
+  specialty: { title: "Specialty Pharmacy", description: "Focused support for complex, high-cost therapies — benefits, copay assistance, and refill coordination handled by our clinical team.", features: ["Limited distribution drugs", "Copay assistance", "Therapy management", "Financial assistance", "Prior authorization support", "Statewide delivery"] },
 };
 
 export const serviceInsights: Record<string, { eyebrow: string; title: string; lead: string; stats: { value: string; label: string }[]; points: { title: string; text: string }[] }> = {
@@ -182,6 +195,21 @@ export const serviceInsights: Record<string, { eyebrow: string; title: string; l
       { title: "A clinical partner, not a vendor", text: "With both an MD and an RPh on our leadership team, you get a pharmacy partner that speaks your clinical language." },
     ],
   },
+  specialty: {
+    eyebrow: "The Facts",
+    title: "What a Specialty Pharmacy Actually Does",
+    lead: "Specialty medications treat complex, chronic conditions — cancer, autoimmune disease, multiple sclerosis, HIV, and more. They often cost thousands per month, need special handling, and come with prior authorizations and copay paperwork. A specialty pharmacy exists to carry that load for the patient and the prescriber.",
+    stats: [
+      { value: "24/7", label: "pharmacist access for urgent questions about a specialty therapy" },
+      { value: "100%", label: "of claims checked for benefits and assistance before we bill you" },
+      { value: "Statewide", label: "delivery across Ohio, including refills on a synchronized schedule" },
+    ],
+    points: [
+      { title: "Copay assistance, pursued for you", text: "Manufacturer copay cards, foundation grants, and patient assistance programs offset what you pay out of pocket. We screen every qualifying therapy and help you enroll." },
+      { title: "Benefits and prior auth, coordinated", text: "We verify coverage with the plan, submit what the plan requires, and work directly with your prescriber so approvals don't stall your therapy." },
+      { title: "Monitoring that keeps therapy on track", text: "Refill synchronization, adherence check-ins, and a pharmacist on call day and night keep complex regimens from slipping through the cracks." },
+    ],
+  },
 };
 
 export const serviceWorkflow: Record<string, { lead: string; steps: { title: string; desc: string }[] }> = {
@@ -215,6 +243,14 @@ export const serviceWorkflow: Record<string, { lead: string; steps: { title: str
       { title: "Send a referral", desc: "E-prescribe, fax, or use our online form \u2014 whatever fits your workflow." },
       { title: "We handle the rest", desc: "Prior authorizations, insurance, and coordination \u2014 our team manages it all." },
       { title: "Track it in real time", desc: "Live status from receipt to delivery, with a dedicated liaison on call." },
+    ],
+  },
+  specialty: {
+    lead: "From the first prior authorization to every synchronized refill, we keep complex therapies moving \u2014 and your costs as low as your plan allows.",
+    steps: [
+      { title: "Your prescriber sends the order", desc: "E-Rx or fax starts the process. We confirm the plan requirements before anything ships." },
+      { title: "We clear the paperwork", desc: "Prior authorization, benefits verification, and copay assistance enrollment \u2014 handled with your plan and prescriber." },
+      { title: "We keep you on therapy", desc: "Refills synchronized to one schedule, delivered statewide, with a pharmacist on call 24/7." },
     ],
   },
 };
@@ -251,5 +287,53 @@ export const serviceBenefits: Record<string, string[]> = {
     "Clear materials that help your patients follow their plan.",
     "Fair, transparent pricing for your practice and your patients.",
     "Live status on every order, from receipt to delivery.",
+  ],
+  specialty: [
+    "Copay cards and assistance programs checked before you ever pay.",
+    "Prior authorizations submitted and followed up until they're approved.",
+    "One pharmacy team that knows your regimen, your plan, and your history.",
+    "Refills synchronized so complex therapies never lapse.",
+    "A pharmacist on call day and night for questions about your therapy.",
+    "Delivery across Ohio \u2014 no mid-cycle pharmacy runs.",
+  ],
+};
+
+export const storefront = {
+  name: "Express Pharmacy & Medical Supply",
+  url: "https://www.altroapp.com/expressrx",
+  catalogUrl: "https://www.altroapp.com/expressrx/catalog",
+  support: { email: "support@altroapp.com", phone: "+1 888-976-9826" },
+  trust: [
+    "503A & 503B licensed compounding pharmacies",
+    "CLIA-certified lab testing",
+    "Board-certified clinicians",
+    "Available in all 50 states + DC",
+  ],
+  categories: [
+    { id: "weight-loss-body-composition", title: "Weight Loss & Body Composition", tagline: "GLP-1 and metabolic treatments to support sustainable weight management.", icon: "scale", image: "/images/storefront/categories/weight-loss-body-composition.png", href: "https://www.altroapp.com/expressrx/c/weight-loss-body-composition" },
+    { id: "peptide-therapy", title: "Peptide Therapy", tagline: "Targeted peptides for recovery, performance, and overall wellness.", icon: "flask", image: "/images/storefront/categories/peptide-therapy.png", href: "https://www.altroapp.com/expressrx/c/peptide-therapy" },
+    { id: "longevity-immunity", title: "Longevity & Immunity", tagline: "NAD+, glutathione, and more to support cellular health and immunity.", icon: "shield", image: "/images/storefront/categories/longevity-immunity.png", href: "https://www.altroapp.com/expressrx/c/longevity-immunity" },
+    { id: "performance-recovery", title: "Performance & Recovery", tagline: "Support muscle recovery, energy, and athletic performance.", icon: "dumbbell", image: "/images/storefront/categories/performance-recovery.jpg", href: "https://www.altroapp.com/expressrx/c/performance-recovery" },
+    { id: "sexual-health", title: "Sexual Health", tagline: "Treatments for sexual wellness and hormonal balance.", icon: "heart", image: "/images/storefront/categories/sexual-health.png", href: "https://www.altroapp.com/expressrx/c/sexual-health" },
+    { id: "men-s-hormonal-health", title: "Men's Hormonal Health", tagline: "Testosterone and hormone support tailored to men.", icon: "activity", image: "/images/storefront/categories/men-s-hormonal-health.jpg", href: "https://www.altroapp.com/expressrx/c/men-s-hormonal-health" },
+    { id: "women-s-hormonal-health", title: "Women's Hormonal Health", tagline: "Bio-identical hormone care designed for women.", icon: "sparkles", image: "/images/storefront/categories/women-s-hormonal-health.jpg", href: "https://www.altroapp.com/expressrx/c/women-s-hormonal-health" },
+    { id: "comprehensive-health-panels", title: "Comprehensive Health Panels", tagline: "CLIA-certified lab panels covering key biomarkers from home.", icon: "microscope", image: "/images/storefront/categories/comprehensive-health-panels.jpg", href: "https://www.altroapp.com/expressrx/c/comprehensive-health-panels" },
+  ],
+  treatments: [
+    { name: "Tirzepatide with B12 (Injection)", category: "Weight Loss & Body Composition", form: "Injection", price: "$324", cadence: "/mo", image: "/images/storefront/treatments/tirzepatide-b12.png", href: "https://www.altroapp.com/expressrx/rx/05c4ec57-bea5-40cc-872c-903fa07706c8" },
+    { name: "Semaglutide with B12 (Injection)", category: "Weight Loss & Body Composition", form: "Injection", price: "$217", cadence: "/mo", image: "/images/storefront/treatments/semaglutide-b12.png", href: "https://www.altroapp.com/expressrx/rx/c4317c07-7170-41dc-a497-4327647fe850" },
+    { name: "Semaglutide (Sublingual)", category: "Weight Loss & Body Composition", form: "Sublingual", price: "$212", cadence: "/mo", image: "/images/storefront/treatments/semaglutide-sublingual.png", href: "https://www.altroapp.com/expressrx/rx/e8e6894d-6790-45e2-aec0-dc14edd2a504" },
+    { name: "Tirzepatide (Sublingual)", category: "Weight Loss & Body Composition", form: "Sublingual", price: "$282", cadence: "/mo", image: "/images/storefront/treatments/tirzepatide-sublingual.png", href: "https://www.altroapp.com/expressrx/rx/2667cf79-a6b9-42b6-abcc-e277c743f07f" },
+    { name: "Lipo-Mino (Injection)", category: "Weight Loss & Body Composition", form: "Injection", price: "$147", cadence: "/mo", image: "/images/storefront/treatments/lipo-mino.png", href: "https://www.altroapp.com/expressrx/rx/30cefc8d-e87b-4ca3-a42c-8c105c4688a2" },
+    { name: "Sermorelin (Injection)", category: "Peptide Therapy", form: "Injection", price: "$184", cadence: "/mo", image: "/images/storefront/treatments/sermorelin.png", href: "https://www.altroapp.com/expressrx/rx/330c060e-1f67-47a7-be86-18e2b1ab7588" },
+    { name: "GHK-Cu Topical Cream 0.5%", category: "Peptide Therapy", form: "Topical", price: "$166", cadence: "/mo", image: "/images/storefront/treatments/ghk-cu-topical.png", href: "https://www.altroapp.com/expressrx/rx/23d3aa14-e110-4296-b0af-36864a6f083a" },
+    { name: "Glutathione (Injection)", category: "Peptide Therapy", form: "Injection", price: "$142", cadence: "/mo", image: "/images/storefront/treatments/glutathione.png", href: "https://www.altroapp.com/expressrx/rx/7d2ddf22-cae3-40c9-8dca-070990e3d31b" },
+    { name: "PT-141 (Injection)", category: "Sexual Health", form: "Injection", price: "$245", cadence: "/mo", image: "/images/storefront/treatments/pt-141.png", href: "https://www.altroapp.com/expressrx/rx/344c16cb-7d37-493b-8b33-2bb68d0158f4" },
+    { name: "NAD+ (Injection)", category: "Longevity & Immunity", form: "Injection", price: "$217", cadence: "/mo", image: "/images/storefront/treatments/nad-plus.png", href: "https://www.altroapp.com/expressrx/rx/06e0bdda-82a5-4dd3-8678-74e3f4808de1" },
+    { name: "Low-Dose Naltrexone", category: "Longevity & Immunity", form: "Capsule", price: "$137", cadence: "/mo", image: "/images/storefront/treatments/low-dose-naltrexone.png", href: "https://www.altroapp.com/expressrx/rx/5bbbd42e-b02d-4a8d-bacb-237ad16ef4ca" },
+    { name: "Men's Testosterone Therapy (Injection)", category: "Men's Hormonal Health", form: "Injection", price: "$127", cadence: "/mo", image: "/images/storefront/treatments/men-testosterone-injection.png", href: "https://www.altroapp.com/expressrx/rx/b5e2a0fc-2483-40bd-9d79-4963a35a81f2" },
+    { name: "Vaginal Estradiol", category: "Women's Hormonal Health", form: "Cream", price: "$139", cadence: "/mo", image: "/images/storefront/treatments/vaginal-estradiol.png", href: "https://www.altroapp.com/expressrx/rx/5db502c7-f12d-4669-8f7a-0c2cf0e40298" },
+    { name: "Men's Comprehensive Panel", category: "Comprehensive Health Panels", form: "Lab Panel", price: "$301", cadence: "one-time", image: "/images/storefront/treatments/men-comprehensive-panel.png", href: "https://www.altroapp.com/expressrx/labs/115761fc-a2d0-4f29-921c-6e1777699380" },
+    { name: "Women's Comprehensive Panel", category: "Comprehensive Health Panels", form: "Lab Panel", price: "$293", cadence: "one-time", image: "/images/storefront/treatments/women-comprehensive-panel.png", href: "https://www.altroapp.com/expressrx/labs/4bf4ada0-a57b-469c-84f5-19e27ab4f6e1" },
   ],
 };

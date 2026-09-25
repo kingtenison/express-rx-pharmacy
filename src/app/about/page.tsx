@@ -26,7 +26,7 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <Image src="/images/about-hero.jpg" alt="" fill className="object-cover" />
         </div>
-        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.88) 100%)" }} />
 
         <div className="absolute top-1/4 right-[10%] w-72 h-72 md:w-96 md:h-96 rounded-full border border-[#00A300]/5 pointer-events-none" style={{ animation: "spin-slow 30s linear infinite" }} />
         <div className="absolute bottom-1/4 left-[5%] w-48 h-48 md:w-64 md:h-64 rounded-full border border-[#00A300]/5 pointer-events-none" style={{ animation: "spin-slow 40s linear infinite reverse" }} />
@@ -160,8 +160,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-36 md:py-48 relative overflow-hidden" style={{ backgroundImage: "url(/images/pills.png)", backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,163,0,0.04) 0%, transparent 60%)" }} />
+      <section className="py-36 md:py-48 relative overflow-hidden" style={{ backgroundImage: "url(/images/journey-bg.png)", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,163,0,0.06) 0%, transparent 60%), linear-gradient(180deg, rgba(4,10,6,0.72) 0%, rgba(4,10,6,0.82) 100%)" }} />
 
         <div className="relative z-10 w-full px-6 md:px-12 lg:px-16">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-24 md:mb-36">

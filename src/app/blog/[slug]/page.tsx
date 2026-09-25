@@ -1,28 +1,47 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { blogPosts, blogContent } from "@/lib/blog-data";
+import { absoluteUrl, blogPostingSchema, breadcrumbSchema, faqPageSchema, JsonLd } from "@/lib/seo";
 import { ArrowLeft, Clock, Tag, Calendar, User, ArrowRight, Share2 } from "lucide-react";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  return params.then(({ slug }) => {
-    const post = blogPosts.find((p) => p.slug === slug);
-    if (!post) return {};
-    return {
-      title: `${post.title} | ExpressRx Pharmacy Blog`,
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = blogPosts.find((p) => p.slug === slug);
+  if (!post) return {};
+
+  const path = `/blog/${slug}`;
+  return {
+    // Brand suffix comes from the root title template.
+    title: post.title,
+    description: post.excerpt,
+    keywords: [post.category, "Columbus Ohio pharmacy", "ExpressRx pharmacy blog"],
+    alternates: { canonical: absoluteUrl(path) },
+    openGraph: {
+      title: post.title,
       description: post.excerpt,
-      openGraph: {
-        title: post.title,
-        description: post.excerpt,
-        type: "article",
-        images: post.image ? [post.image] : [],
-      },
-    };
-  });
+      url: absoluteUrl(path),
+      siteName: "Express Pharmacy & DME",
+      locale: "en_US",
+      type: "article",
+      publishedTime: post.datePublished,
+      modifiedTime: post.dateModified ?? post.datePublished,
+      authors: [post.author ?? "ExpressRx Clinical Team"],
+      section: post.category,
+      images: post.image ? [{ url: post.image }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: post.image ? [post.image] : undefined,
+    },
+  };
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -35,6 +54,27 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="min-h-screen" style={{ background: "white" }}>
+      <JsonLd
+        data={blogPostingSchema({
+          title: post.title,
+          description: post.excerpt,
+          path: `/blog/${slug}`,
+          image: post.image,
+          datePublished: post.datePublished,
+          dateModified: post.dateModified,
+          author: post.author ?? "ExpressRx Clinical Team",
+          category: post.category,
+          keywords: [post.category, "Columbus Ohio pharmacy"],
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: post.title, path: `/blog/${slug}` },
+        ])}
+      />
+      {post.faqs && post.faqs.length > 0 && <JsonLd data={faqPageSchema(post.faqs)} />}
       {/* Hero */}
       <section className="relative overflow-hidden" style={{ background: "linear-gradient(160deg, #f8fdf8 0%, #e8f5e8 40%, #f0f9f0 100%)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 800px 400px at 30% 50%, rgba(0,163,0,0.06) 0%, transparent 60%)" }} />
@@ -42,6 +82,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-28 md:pt-36 pb-16 md:pb-20">
           <div className="max-w-4xl mx-auto">
+            <nav aria-label="Breadcrumb" className="mb-4 text-xs text-gray-400">
+              <ol className="flex flex-wrap items-center gap-2">
+                <li>
+                  <Link href="/" className="hover:text-[#00A300] transition-colors">
+                    Home
+                  </Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                <li>
+                  <Link href="/blog" className="hover:text-[#00A300] transition-colors">
+                    Blog
+                  </Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                <li className="text-gray-500 min-w-0 truncate max-w-[14rem]" aria-current="page">
+                  {post.title}
+                </li>
+              </ol>
+            </nav>
+
             <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#00A300] mb-8 transition-colors group">
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               Back to Blog
@@ -107,9 +167,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <span>Share this article</span>
               </div>
               <div className="flex items-center gap-3">
-                <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://expressrx.com/blog/${slug}`)}`} target="_blank" rel="noopener noreferrer" className="text-xs text-gray-400 hover:text-[#00A300] transition-colors">Twitter</a>
-                <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://expressrx.com/blog/${slug}`)}`} target="_blank" rel="noopener noreferrer" className="text-xs text-gray-400 hover:text-[#00A300] transition-colors">Facebook</a>
-                <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://expressrx.com/blog/${slug}`)}`} target="_blank" rel="noopener noreferrer" className="text-xs text-gray-400 hover:text-[#00A300] transition-colors">LinkedIn</a>
+                <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(absoluteUrl(`/blog/${slug}`))}`} target="_blank" rel="noopener noreferrer" className="text-xs text-gray-400 hover:text-[#00A300] transition-colors">Twitter</a>
+                <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(absoluteUrl(`/blog/${slug}`))}`} target="_blank" rel="noopener noreferrer" className="text-xs text-gray-400 hover:text-[#00A300] transition-colors">Facebook</a>
+                <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(absoluteUrl(`/blog/${slug}`))}`} target="_blank" rel="noopener noreferrer" className="text-xs text-gray-400 hover:text-[#00A300] transition-colors">LinkedIn</a>
               </div>
             </div>
 
