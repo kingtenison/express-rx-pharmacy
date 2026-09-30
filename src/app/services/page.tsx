@@ -9,7 +9,7 @@ import ServicesList from "@/components/ServicesList";
 
 const serviceImages = [
   { id: "compounding", src: "/images/compounding.png", label: "Compounding" },
-  { id: "dme", src: "/images/DME.png", label: "DME" },
+  { id: "dme", src: "/images/dme.png", label: "DME" },
   { id: "long-term-care", src: "/images/long-term-care.png", label: "Long-Term Care" },
   { id: "specialty", src: "/images/specialty.png", label: "Specialty" },
   { id: "for-providers", src: "/images/for-providers.png", label: "For Providers" },

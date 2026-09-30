@@ -1,4 +1,4 @@
-﻿import { Metadata } from "next";
+import { Metadata } from "next";
 import { servicesPageContent } from "@/lib/data";
 import ServiceDetail from "@/components/ServiceDetail";
 import { buildMetadata } from "@/lib/seo";
@@ -11,5 +11,5 @@ export const metadata: Metadata = buildMetadata({
   keywords: ["pharmacy provider referrals", "e-prescribe pharmacy Ohio", "prior authorization support"],
 });
 export default function ForProvidersPage() {
-  return <ServiceDetail title={servicesPageContent.forProviders.title} description={servicesPageContent.forProviders.description} features={servicesPageContent.forProviders.features} icon="stethoscope" imageSrc="/138953.jpg" />;
+  return <ServiceDetail title={servicesPageContent.forProviders.title} description={servicesPageContent.forProviders.description} features={servicesPageContent.forProviders.features} icon="stethoscope" imageSrc="/images/for-providers.png" />;
 }

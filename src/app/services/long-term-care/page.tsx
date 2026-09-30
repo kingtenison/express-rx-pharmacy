@@ -1,4 +1,4 @@
-﻿import { Metadata } from "next";
+import { Metadata } from "next";
 import { servicesPageContent } from "@/lib/data";
 import ServiceDetail from "@/components/ServiceDetail";
 import { buildMetadata } from "@/lib/seo";
@@ -11,5 +11,5 @@ export const metadata: Metadata = buildMetadata({
   keywords: ["long term care pharmacy", "nursing home pharmacy Ohio", "facility medication management"],
 });
 export default function LongTermCarePage() {
-  return <ServiceDetail title={servicesPageContent.longTermCare.title} description={servicesPageContent.longTermCare.description} features={servicesPageContent.longTermCare.features} icon="building" imageSrc="/images/Long-Term Care.png" />;
+  return <ServiceDetail title={servicesPageContent.longTermCare.title} description={servicesPageContent.longTermCare.description} features={servicesPageContent.longTermCare.features} icon="building" imageSrc="/images/long-term-care.png" />;
 }
